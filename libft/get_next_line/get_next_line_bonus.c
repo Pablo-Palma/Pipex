@@ -6,13 +6,13 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 14:14:34 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/10/04 13:21:14 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/21 08:13:37 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	*handle_error(char **buffer_res)
+void	*handle_error_gnl(char **buffer_res)
 {
 	free(*buffer_res);
 	*buffer_res = NULL;
@@ -86,7 +86,7 @@ char	*get_next_line(int fd)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
-			return (handle_error(&buffer_res[fd]));
+			return (handle_error_gnl(&buffer_res[fd]));
 		if (bytes_read == 0)
 			break ;
 		buffer[bytes_read] = '\0';

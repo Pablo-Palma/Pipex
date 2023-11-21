@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 15:07:55 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/20 18:11:04 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:31:24 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	execute_command(t_pipex *pipex, char **cmds, int num_cmds)
 	{
 		if (i < num_cmds - 1)
 		{
-			if(pipe(pipes) == -1)
+			if (pipe(pipes) == -1)
 				handle_error("Error creating pipe", 1, EXIT_FAILURE);
 		}
 		if (i == num_cmds - 1)

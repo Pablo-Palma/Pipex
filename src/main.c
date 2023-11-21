@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 17:50:47 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/21 07:32:24 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/21 08:40:22 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int	main(int argc, char **argv, char **envp)
 //	atexit(leaks);
 	validate_args(argc, argv);
 	initialize_pipex(&pipex, argc, argv, envp);
-	execute_command(&pipex, argv + 2, argc - 3);
+	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
+		execute_command(&pipex, argv + 3, argc - 4);
+	else
+		execute_command(&pipex, argv + 2, argc - 3);
 	return (0);
 }

@@ -6,23 +6,23 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 10:45:41 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/20 17:58:58 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:30:48 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-#include "libft.h"
-#include <sys/wait.h> //waitpid
-#include <fcntl.h> //open
+# include "libft.h"
+# include <sys/wait.h> //waitpid
+# include <fcntl.h> //open
 
 typedef struct s_pipex
 {
 	int		fd_in;
 	int		fd_out;
 	int		pipes[2];
-	char 	**envp;
+	char	**envp;
 }			t_pipex;
 
 ///###   PARSER
