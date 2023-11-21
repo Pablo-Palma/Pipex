@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 10:45:41 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/21 11:30:48 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:47:42 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void	execute_command(t_pipex *pipex, char **cmds, int num_cmds);
 ///###   UTILS
 void	initialize_pipex(t_pipex *pipex, int argc, char **argv, char **envp);
 void	handle_error(const char *msg, int use_perror, int error_code);
+void	create_pipe(int pipes[2]);
 
 #endif

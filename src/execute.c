@@ -6,18 +6,38 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 15:07:55 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/21 11:31:24 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:48:12 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+void	execute_command_child(t_pipex *pipex, char *cmd, int input, int output)
+{
+	char	**cmd_args;
+	char	*cmd_path;
+
+	if (dup2 (input, STDIN_FILENO) == -1
+		|| dup2 (output, STDOUT_FILENO) == -1)
+		handle_error("Error in dup2", 1, EXIT_FAILURE);
+	close(input);
+	close(output);
+	cmd_args = split_cmd(cmd);
+	if (!cmd_args)
+		handle_error("Error splitting command", 0, 2);
+	cmd_path = get_path(cmd_args[0], getenv("PATH"));
+	if (!cmd_path)
+		handle_error("command not found", 0, 127);
+	execve(cmd_path, cmd_args, pipex->envp);
+	ft_free_arrays(cmd_args);
+	handle_error("Error in execve", 1, EXIT_FAILURE);
+	free(cmd_path);
+}
+
 void	execute_single_cmd(t_pipex *pipex, char *cmd, int input, int output)
 {
 	pid_t	pid;
 	int		status;
-	char	**cmd_args;
-	char	*cmd_path;
 	int		exit_status;
 
 	exit_status = 0;
@@ -25,23 +45,7 @@ void	execute_single_cmd(t_pipex *pipex, char *cmd, int input, int output)
 	if (pid == -1)
 		handle_error("Error in fork", 1, EXIT_FAILURE);
 	else if (pid == 0)
-	{
-		if (dup2 (input, STDIN_FILENO) == -1
-			|| dup2 (output, STDOUT_FILENO) == -1)
-			handle_error("Error in dup2", 1, EXIT_FAILURE);
-		close(input);
-		close(output);
-		cmd_args = split_cmd(cmd);
-		if (!cmd_args)
-			handle_error("Error splitting command", 0, 2);
-		cmd_path = get_path(cmd_args[0], getenv("PATH"));
-		if (!cmd_path)
-			handle_error("command not found", 0, 127);
-		execve(cmd_path, cmd_args, pipex->envp);
-		ft_free_arrays(cmd_args);
-		handle_error("Error in execve", 1, EXIT_FAILURE);
-		free(cmd_path);
-	}
+		execute_command_child(pipex, cmd, input, output);
 	else
 	{
 		waitpid(pid, &status, 0);
@@ -67,10 +71,7 @@ void	execute_command(t_pipex *pipex, char **cmds, int num_cmds)
 	while (i < num_cmds)
 	{
 		if (i < num_cmds - 1)
-		{
-			if (pipe(pipes) == -1)
-				handle_error("Error creating pipe", 1, EXIT_FAILURE);
-		}
+			create_pipe(pipes);
 		if (i == num_cmds - 1)
 			execute_single_cmd(pipex, cmds[i], input_fd, pipex->fd_out);
 		else

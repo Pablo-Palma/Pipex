@@ -6,17 +6,24 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 12:04:46 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/21 11:33:55 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:47:30 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+void	create_pipe(int pipes[2])
+{
+	if (pipe(pipes) == -1)
+		handle_error("Error creating pipe", 1, EXIT_FAILURE);
+}
+
 void	read_from_stdin(const char *limit, int write_fd)
 {
 	char	*line;
 
-	while ((line = get_next_line(STDIN_FILENO)))
+	line = get_next_line(STDIN_FILENO);
+	while (line)
 	{
 		if (strncmp(line, limit, ft_strlen(limit)) == 0)
 		{
@@ -25,6 +32,7 @@ void	read_from_stdin(const char *limit, int write_fd)
 		}
 		write(write_fd, line, ft_strlen(line));
 		free(line);
+		line = get_next_line(STDIN_FILENO);
 	}
 }
 
@@ -59,7 +67,8 @@ void	initialize_pipex(t_pipex *pipex, int argc, char **argv, char **envp)
 		pipex->fd_in = open(argv[1], O_RDONLY);
 		if (pipex->fd_in < 0)
 			handle_error("Error opening file1", 1, 2);
-		pipex->fd_out = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		pipex->fd_out = open(argv[argc - 1], O_WRONLY | O_CREAT
+				| O_TRUNC, 0644);
 		if (pipex->fd_out < 0)
 			handle_error("Error opening file2", 1, 3);
 	}

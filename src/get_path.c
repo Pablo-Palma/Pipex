@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 16:58:32 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/17 17:24:51 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/21 13:24:56 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*join_cmd_to_dir(const char *dir, const char *cmd)
 	char	*full_path;
 	size_t	len;
 
-	len = ft_strlen(dir) + ft_strlen(cmd) + 2; // para '/' y '\0'
+	len = ft_strlen(dir) + ft_strlen(cmd) + 2;
 	full_path = malloc(len);
 	if (!full_path)
 		return (NULL);
@@ -34,7 +34,9 @@ char	*get_path(char *cmd, const char *env_path)
 	int		i;
 
 	i = 0;
-	dirs = ft_split(env_path, ':'); //divide path en directorios
+	if (cmd[0] == '/' && access(cmd, X_OK) == 0)
+		return (ft_strdup(cmd));
+	dirs = ft_split(env_path, ':');
 	if (!dirs)
 		return (NULL);
 	cmd_path = NULL;
