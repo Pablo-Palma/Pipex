@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 10:45:41 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/18 12:22:07 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:58:58 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,17 @@ typedef struct s_pipex
 ///###   PARSER
 void	validate_args(int argc, char **argv);
 
+///###   SPLIT_CMD
+char	**split_cmd(const char *cmd);
+
 ////###   GET_PATH
 char	*get_path(char *cmd, const char *env_path);
 
 ///###   EXECUTE
-void	execute_command(t_pipex *pipex, char *cmd1, char *cmd2);
+void	execute_command(t_pipex *pipex, char **cmds, int num_cmds);
 
 ///###   UTILS
-void	initialize_pipex(t_pipex *pipex, char **argv, char **envp);
+void	initialize_pipex(t_pipex *pipex, int argc, char **argv, char **envp);
 void	handle_error(const char *msg, int use_perror, int error_code);
 
 #endif

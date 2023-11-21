@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 15:07:55 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/18 12:34:45 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:11:04 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ void	execute_single_cmd(t_pipex *pipex, char *cmd, int input, int output)
 		handle_error("Error in fork", 1, EXIT_FAILURE);
 	else if (pid == 0)
 	{
-		if(dup2(input, STDIN_FILENO) == -1 
-			|| dup2(output, STDOUT_FILENO) == -1)
+		if (dup2 (input, STDIN_FILENO) == -1
+			|| dup2 (output, STDOUT_FILENO) == -1)
 			handle_error("Error in dup2", 1, EXIT_FAILURE);
 		close(input);
 		close(output);
-		cmd_args = ft_split(cmd, ' ');
+		cmd_args = split_cmd(cmd);
 		if (!cmd_args)
 			handle_error("Error splitting command", 0, 2);
 		cmd_path = get_path(cmd_args[0], getenv("PATH"));
@@ -56,10 +56,32 @@ void	execute_single_cmd(t_pipex *pipex, char *cmd, int input, int output)
 	}
 }
 
-void	execute_command(t_pipex *pipex, char *cmd1, char *cmd2)
+void	execute_command(t_pipex *pipex, char **cmds, int num_cmds)
 {
-	execute_single_cmd(pipex, cmd1, pipex->fd_in, pipex->pipes[1]);
-	close(pipex->pipes[1]);
-	execute_single_cmd(pipex, cmd2, pipex->pipes[0], pipex->fd_out);
-	close(pipex->pipes[0]);
+	int	i;
+	int	input_fd;
+	int	pipes[2];
+
+	i = 0;
+	input_fd = pipex->fd_in;
+	while (i < num_cmds)
+	{
+		if (i < num_cmds - 1)
+		{
+			if(pipe(pipes) == -1)
+				handle_error("Error creating pipe", 1, EXIT_FAILURE);
+		}
+		if (i == num_cmds - 1)
+			execute_single_cmd(pipex, cmds[i], input_fd, pipex->fd_out);
+		else
+			execute_single_cmd(pipex, cmds[i], input_fd, pipes[1]);
+		if (input_fd != pipex->fd_in)
+			close(input_fd);
+		if (i < num_cmds -1)
+		{
+			close(pipes[1]);
+			input_fd = pipes[0];
+		}
+		i++;
+	}
 }
