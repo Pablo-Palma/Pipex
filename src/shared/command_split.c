@@ -6,11 +6,15 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 18:27:38 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/18 19:36:44 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/22 10:18:41 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#ifdef BONUS
+# include "pipex_bonus.h"
+#else
+# include "pipex.h"
+#endif
 
 static int	count_args(const char *cmd)
 {

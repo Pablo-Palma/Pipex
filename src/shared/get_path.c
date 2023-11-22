@@ -6,11 +6,15 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 16:58:32 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/21 13:24:56 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/22 10:18:52 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#ifdef BONUS
+# include "pipex_bonus.h"
+#else
+# include "pipex.h"
+#endif
 
 static char	*join_cmd_to_dir(const char *dir, const char *cmd)
 {

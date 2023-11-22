@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/18 10:46:14 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/21 13:40:39 by pabpalma         ###   ########.fr       */
+/*   Created: 2023/11/15 17:50:47 by pabpalma          #+#    #+#             */
+/*   Updated: 2023/11/22 12:20:06 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	validate_args(int argc, char **argv)
+/*void	leaks()
 {
-	int	i;
+	system("leaks -q pipex");
+}*/
 
-	i = 2;
-	if (argc < 5)
-		handle_error("Usage: ./pipex file1 cmd1 cmd2 ... file2", 0, 5);
-	if (ft_strncmp(argv[1], "here_doc", 8) != 0)
-	{
-		if (access(argv[1], R_OK) == -1)
-			handle_error("Input Error", 1, 6);
-	}
-	while (i < argc -1)
-	{
-		if (ft_strlen(argv[i]) == 0)
-			handle_error("Error: commands cannot be empty", 0, 7);
-		i++;
-	}
+int	main(int argc, char **argv, char **envp)
+{
+	t_pipex	pipex;
+
+	validate_args(argc, argv);
+	initialize_pipex(&pipex, argv, envp);
+	execute_command(&pipex, argv[2], argv[3]);
+	return (0);
 }

@@ -59,8 +59,8 @@ run_test "Invertir líneas" "./pipex input_file.txt 'cat' 'tail -r' pipex_output
 run_test "Eliminar duplicados" "./pipex input_file.txt 'cat' 'uniq' pipex_output.txt" "< input_file.txt cat | uniq > shell_output.txt"
 
 run_test "Múltiples Comandos" \
-"./pipex input_file.txt 'grep test' 'wc -l' pipex_output.txt" \
-"< input_file.txt grep test | wc -l > shell_output.txt"
+"./pipex input_file.txt 'grep PABLO' 'wc -l' pipex_output.txt" \
+"< input_file.txt grep PABLO | wc -l > shell_output.txt"
 
 run_test "Comando awk y Comillas Simples" \
 "./pipex input_file.txt \"awk '/test/'\" 'cat' pipex_output.txt" \
@@ -74,9 +74,28 @@ run_test "Archivo de Entrada Inexistente" \
 "./pipex non_existing_file 'cat' 'wc -l' pipex_output.txt" \
 "< non_existing_file cat | wc -l > shell_output.txt"
 
+if [[ -f ./pipex_bonus ]]; then
+
+echo "--------------------------------"
+echo "Iniciando pruebas de bonus..."
+
 run_test "Pipelines Largos" \
-"./pipex input_file.txt 'grep test' 'sort' 'uniq' 'wc -l' pipex_output.txt" \
-"< input_file.txt grep test | sort | uniq | wc -l > shell_output.txt"
+"./pipex_bonus input_file.txt 'grep PALMA' 'sort' 'uniq' 'wc -l' pipex_output.txt" \
+"< input_file.txt grep PALMA | sort | uniq | wc -l > shell_output.txt"
 
-run_test "Redirección de Here Document" "./pipex here_doc END 'grep hola munod' 'wc -l' pipex_output.txt" "grep hola mundo << END | wc -l > shell_output.txt"
+# Pruebas para la gestión de múltiples pipes
 
+run_test "Múltiples Pipes 3 Comandos" \
+"./pipex_bonus input_file.txt 'grep PALMA' 'sort' 'uniq' pipex_output.txt" \
+"< input_file.txt grep PALMA | sort | uniq > shell_output.txt"
+
+run_test "Múltiples Pipes 4 Comandos" \
+"./pipex_bonus input_file.txt 'cat' 'grep PALMA' 'sort' 'wc -l' pipex_output.txt" \
+"< input_file.txt cat | grep PALMA | sort | wc -l > shell_output.txt"
+
+# Pruebas para la funcionalidad "here_doc"
+run_test "Redirección de Here Document" "./pipex_bonus here_doc END 'grep hola mundo' 'wc -l' pipex_output.txt" "grep hola mundo << END | wc -l > shell_output.txt"
+
+echo "Pruebas de bonus completadas."
+
+fi

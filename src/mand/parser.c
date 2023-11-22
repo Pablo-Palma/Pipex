@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/15 17:50:47 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/21 13:23:46 by pabpalma         ###   ########.fr       */
+/*   Created: 2023/11/18 10:46:14 by pabpalma          #+#    #+#             */
+/*   Updated: 2023/11/22 11:56:18 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/*void	leaks()
+void	validate_args(int argc, char **argv)
 {
-	system("leaks -q pipex");
-}*/
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_pipex	pipex;
-
-	validate_args(argc, argv);
-	initialize_pipex(&pipex, argc, argv, envp);
-	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
-		execute_command(&pipex, argv + 3, argc - 4);
-	else
-		execute_command(&pipex, argv + 2, argc - 3);
-	return (0);
+	if (argc != 5)
+		handle_error("Usage: ./pipex file1 cmd1 cmd2 file2", 0, 5);
+	if (access(argv[1], R_OK) == -1)
+		handle_error("Input Error", 1, 6);
+	if (ft_strlen(argv[2]) == 0 || ft_strlen(argv[3]) == 0)
+		handle_error("Error: commands cannot be empty", 0, 7);
 }

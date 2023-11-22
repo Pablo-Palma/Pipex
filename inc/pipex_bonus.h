@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 10:45:41 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/21 18:38:59 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/22 10:19:58 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include "libft.h"
 # include <sys/wait.h> //waitpid
@@ -35,10 +35,11 @@ char	**split_cmd(const char *cmd);
 char	*get_path(char *cmd, const char *env_path);
 
 ///###   EXECUTE
-void	execute_command(t_pipex *pipex, char *cmd1, char *cmd2);
+void	execute_command(t_pipex *pipex, char **cmds, int num_cmds);
 
 ///###   UTILS
-void	initialize_pipex(t_pipex *pipex, char **argv, char **envp);
+void	initialize_pipex(t_pipex *pipex, int argc, char **argv, char **envp);
 void	handle_error(const char *msg, int use_perror, int error_code);
+void	create_pipe(int pipes[2]);
 
 #endif
