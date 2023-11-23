@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/18 18:27:38 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/22 10:18:41 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/23 09:02:15 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	count_args(const char *cmd)
 	count = 0;
 	while (*cmd)
 	{
-		if (*cmd == '\'' && (*(cmd - 1) != '\\' || *cmd == cmd[0]))
+		if (*cmd == '\'' && (*cmd == cmd[0] || *(cmd - 1) != '\\'))
 			in_quote = !in_quote;
 		if (*cmd == ' ' && in_quote == 0)
 			count++;

@@ -6,7 +6,7 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 12:04:46 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/20 09:38:58 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:50:15 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ void	initialize_pipex(t_pipex *pipex, char **argv, char **envp)
 	pipex->envp = envp;
 	pipex->fd_in = open(argv[1], O_RDONLY);
 	if (pipex->fd_in < 0)
-		handle_error("Error opening file1", 1, 2);
+		handle_error("Error opening file1", 1, ERROR_OPEN_FILE1);
 	pipex->fd_out = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (pipex->fd_out < 0)
-		handle_error("Error opening file2", 1, 3);
+		handle_error("Error opening file2", 1, ERROR_OPEN_FILE2);
 	if (pipe(pipex->pipes) == -1)
-		handle_error("pipe filed", 1, 4);
+		handle_error("pipe failed", 1, ERROR_PIPE_CREATION);
 }

@@ -6,12 +6,19 @@
 /*   By: pabpalma <pabpalma>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 10:45:41 by pabpalma          #+#    #+#             */
-/*   Updated: 2023/11/21 18:38:59 by pabpalma         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:55:00 by pabpalma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+
+# define ERROR_OPEN_FILE1 2
+# define ERROR_OPEN_FILE2 3
+# define ERROR_PIPE_CREATION 4
+# define ERROR_SPLIT_CMD 5
+# define ERROR_EXECVE 6
+# define ERROR_COMMAND_NOT_FOUND 127
 
 # include "libft.h"
 # include <sys/wait.h> //waitpid
