@@ -1,6 +1,6 @@
 <h1 align="center">🚀 Pipex Project 🚀</h1>
 <p align="center">
-  <img src="your-logo-url.png" alt="Pipex Logo" width="200"/>
+  <img src="https://github.com/byaliego/42-project-badges/blob/main/badges/pipexm.png" alt="Pipex Logo" width="200"/>
 </p>
 <h2> Introducción</h2>
 <p>
@@ -43,20 +43,5 @@ test/             # Scripts y archivos de prueba
   <li>Compilador de C (GCC recomendado).</li>
   <li>Librería <code>libft</code> (incluida).</li>
 </ul>
-<h2>🤝 Contribuir</h2>
-<p>
-  Las contribuciones son bienvenidas. Para contribuir:
-</p>
-<ol>
-  <li>Fork el repositorio.</li>
-  <li>Crea tu Feature Branch (<code>git checkout -b feature/AmazingFeature</code>).</li>
-  <li>Realiza tus cambios y commit (<code>git commit -m 'Add some AmazingFeature'</code>).</li>
-  <li>Push a la Branch (<code>git push origin feature/AmazingFeature</code>).</li>
-  <li>Abre un Pull Request.</li>
-</ol>
-<h2>📜 Licencia</h2>
-<p>
-  Distribuido bajo la Licencia MIT. Ver <code>LICENSE</code> para más información.
-</p>
 <h2>📫 Contacto</h2>
 <p>Tu Nombre - <a href="mailto:tu.pablopalmappr@gmail.com">pablopalmappr@gmail.com.com</a></p>
