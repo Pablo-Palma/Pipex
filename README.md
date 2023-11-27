@@ -44,4 +44,4 @@ test/             # Scripts y archivos de prueba
   <li>Librería <code>libft</code> (incluida).</li>
 </ul>
 <h2>📫 Contacto</h2>
-<p>Tu Nombre - <a href="mailto:tu.pablopalmappr@gmail.com">pablopalmappr@gmail.com.com</a></p>
+<p>Pablo Palma - <a href="mailto:tu.pablopalmappr@gmail.com">pablopalmappr@gmail.com.com</a></p>
